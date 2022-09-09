@@ -1,27 +1,9 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-} from 'react-native';
+import { AppNavigation } from './src/routers';
 
 const App = () => {
-  return (
-    <SafeAreaView style={styles.appContainer}>
-      <StatusBar barStyle={'dark-content'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Text>CIS Holders</Text>
-      </ScrollView>
-    </SafeAreaView>
-  );
+  return <AppNavigation />;
 };
-
-const styles = StyleSheet.create({
-  appContainer: {
-    backgroundColor: '#fff',
-  },
-});
 
 export default App;
