@@ -5,4 +5,9 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
+  toogleText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 });
