@@ -1,6 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { FC } from 'react';
-import { AboutScreen } from '../scenes/About';
+import { AboutScreen } from 'scenes/About';
 
 const Stack = createStackNavigator();
 
