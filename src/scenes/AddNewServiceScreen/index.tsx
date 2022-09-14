@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Alert, Button, Text, Switch, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { DocumentPickerCustom } from '../../components/DocumentPickerCustom/DocumentPickerCustom';
-import { DropdownPicker } from '../../components/DropdownPicker/DropdownPicker';
-import { TextInput } from '../../components/TextInput/TextInput';
+import { DocumentPickerCustom } from 'components/DocumentPickerCustom/DocumentPickerCustom';
+import { DropdownPicker } from 'components/DropdownPicker/DropdownPicker';
+import { TextInput } from 'components/TextInput/TextInput';
 import { styles } from './styles';
 import { FormDataType } from './types';
 

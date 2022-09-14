@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import { AddNewServiceScreen } from '../scenes/AddNewServiceScreen';
-import { MapScreen } from '../scenes/Map';
-import { ServicesScreen } from '../scenes/Services';
+import { ServicesScreen } from 'scenes/Services';
+import { AddNewServiceScreen } from 'scenes/AddNewServiceScreen';
+import { MapScreen } from 'scenes/Map';
 
 const Tab = createBottomTabNavigator();
 

@@ -6,9 +6,9 @@ import {
 } from '@react-navigation/native';
 import { HomeTabs } from './HomeTabs';
 import { DrawerStack } from './DrawerStack';
-import { CustomDrawerContent } from '../components/CustomDrawerContent/CustomDrawerContent';
+import { CustomDrawerContent } from 'components/CustomDrawerContent/CustomDrawerContent';
 import { RootDrawerParamList } from './types';
-import { NavBackButton } from '../controls/NavBackButton/NavBackButton';
+import { NavBackButton } from 'controls/NavBackButton/NavBackButton';
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
