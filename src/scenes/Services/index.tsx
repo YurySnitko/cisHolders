@@ -1,42 +1,38 @@
-import React, { FC } from 'react';
+import { formatServicesData } from '../../utils/helpers/formatServicesData';
+import React, { FC, useEffect } from 'react';
 import { SectionList, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { getServicesStarted } from 'store/reducers/ServicesSlice';
+import { useAppDispatch, useAppSelector } from 'store/store';
 import { styles } from './styles';
 
-const DATA = [
-  {
-    title: 'AutoService',
-    data: ['Volvo', 'BMV', 'Porshe'],
-  },
-  {
-    title: 'Cafe',
-    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-  },
-  {
-    title: 'Drinks',
-    data: ['Water', 'Coke', 'Beer'],
-  },
-  {
-    title: 'Desserts',
-    data: ['Cheese Cake', 'Ice Cream'],
-  },
-];
-
 export const ServicesScreen: FC = () => {
+  const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector(state => state.services);
+  const { data } = useAppSelector(state => state.services);
+
+  useEffect(() => {
+    dispatch(getServicesStarted());
+  }, [dispatch]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <Text style={styles.title}>{item}</Text>
-          </View>
-        )}
-        renderSectionHeader={({ section: { title } }) => (
-          <Text style={styles.header}>{title}</Text>
-        )}
-      />
+      {isLoading ? (
+        <Text>loading...</Text>
+      ) : (
+        <SectionList
+          sections={formatServicesData(data)}
+          keyExtractor={(item, index) => item.title + index}
+          renderItem={({ item }) => (
+            <View style={styles.item}>
+              <Text style={styles.title}>{item.title}</Text>
+            </View>
+          )}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.header}>{title}</Text>
+          )}
+        />
+      )}
     </SafeAreaView>
   );
 };

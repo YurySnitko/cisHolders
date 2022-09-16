@@ -10,6 +10,8 @@ module.exports = {
           controls: './src/controls',
           routers: './src/routers',
           scenes: './src/scenes',
+          store: './src/store',
+          utils: './src/utils',
         },
       },
     ],
