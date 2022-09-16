@@ -37,11 +37,11 @@ export const servicesSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
-    addNewServiceStarted: state => {
+    addNewServiceStarted: (state, _action) => {
       state.isLoading = true;
     },
-    addNewServiceSuccess: state => {
-      // state.data.push(action.payload);
+    addNewServiceSuccess: (state, action) => {
+      state.data.push(action.payload);
       state.isLoading = false;
     },
     addNewServiceFailed: (state, action) => {

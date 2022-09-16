@@ -80,12 +80,10 @@ function* getServicesWorker() {
 
 function* addNewServiceWorker(action: PayloadAction<Service>) {
   try {
-    console.log(action.payload);
-
     yield call(() => {
       return Promise.resolve();
     });
-    yield put(addNewServiceSuccess());
+    yield put(addNewServiceSuccess(action.payload));
   } catch (e) {
     yield put(addNewServiceFailed(e));
   }
