@@ -4,6 +4,6 @@ export type FormDataType = {
   title: string;
   description: string;
   serviceType: string;
-  address: string;
+  location: string;
   attachment: DocumentPickerResponse | null;
 };

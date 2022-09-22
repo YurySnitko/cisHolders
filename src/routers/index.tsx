@@ -16,6 +16,7 @@ export const AppNavigation: FC = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator
+        initialRouteName="Home"
         drawerContent={props => <CustomDrawerContent {...props} />}
         screenOptions={({ route }) => ({
           headerTitleAlign: 'center',
