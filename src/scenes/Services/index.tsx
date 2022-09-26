@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { getServicesStarted } from 'store/reducers/ServicesSlice';
 import { useAppDispatch, useAppSelector } from 'store/store';
 import { styles } from './styles';
+import firestore from '@react-native-firebase/firestore';
 
 export const ServicesScreen: FC = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,21 @@ export const ServicesScreen: FC = () => {
   useEffect(() => {
     dispatch(getServicesStarted());
   }, [dispatch]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      console.log('fetch started');
+
+      const collection = await firestore().collection('services').get();
+      console.log(collection.size);
+    };
+    fetchData();
+    const subscribe = firestore()
+      .collection('services')
+      .onSnapshot(snapshot => snapshot.forEach(d => console.log(d.data())));
+
+    return () => subscribe();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
