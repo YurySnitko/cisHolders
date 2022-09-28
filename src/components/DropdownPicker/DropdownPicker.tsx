@@ -10,19 +10,18 @@ export const DropdownPicker = <T extends FieldValues>(
     field: { onChange, value: initValue },
   } = useController(props);
   const [open, setOpen] = useState<boolean>(false);
-  const [value, setValue] = useState(initValue);
   const [items, setItems] = useState([
-    { label: 'Apple', value: 'apple' },
-    { label: 'Banana', value: 'banana' },
+    { label: 'Autoservice', value: 'autoservice' },
+    { label: 'Cafe', value: 'cafe' },
   ]);
 
   return (
     <DropDownPicker
       open={open}
-      value={value}
+      value={initValue}
       items={items}
       setOpen={setOpen}
-      setValue={setValue}
+      setValue={onChange}
       setItems={setItems}
       onChangeValue={onChange}
     />

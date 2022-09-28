@@ -2,6 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DocumentPickerResponse } from 'react-native-document-picker';
 
 export type Service = {
+<<<<<<< HEAD
+  id: string;
+=======
+>>>>>>> 7a05551101a706222d992815ccc0caef2c730e50
   dateAdded: string;
   title: string;
   description: string;
