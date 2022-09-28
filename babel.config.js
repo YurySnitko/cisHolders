@@ -12,6 +12,8 @@ module.exports = {
           scenes: './src/scenes',
           store: './src/store',
           utils: './src/utils',
+          api: './src/api',
+          types: './src/types',
         },
       },
     ],

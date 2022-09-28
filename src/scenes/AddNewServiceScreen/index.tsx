@@ -9,12 +9,14 @@ import { styles } from './styles';
 import { FormDataType } from './types';
 import { useAppDispatch } from 'store/store';
 import { addNewServiceStarted } from 'store/reducers/ServicesSlice';
+import { addDate } from 'utils/helpers/addDate';
 
 export const AddNewServiceScreen: FC = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       title: '',
@@ -29,8 +31,10 @@ export const AddNewServiceScreen: FC = () => {
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-  const onSubmit: SubmitHandler<FormDataType> = data =>
-    dispatch(addNewServiceStarted(data));
+  const onSubmit: SubmitHandler<FormDataType> = data => {
+    dispatch(addNewServiceStarted(addDate(data)));
+    reset();
+  };
 
   return (
     <SafeAreaView style={styles.container}>

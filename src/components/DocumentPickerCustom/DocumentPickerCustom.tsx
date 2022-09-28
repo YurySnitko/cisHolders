@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import DocumentPicker, {
-  DocumentPickerResponse,
-} from 'react-native-document-picker';
+import React from 'react';
+import DocumentPicker from 'react-native-document-picker';
 import { View, Alert, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FieldValues, useController } from 'react-hook-form';
@@ -11,9 +9,8 @@ import { DocumentPickerCustomProps } from './DocumentPickerCustom.types';
 export const DocumentPickerCustom = <T extends FieldValues>(
   props: DocumentPickerCustomProps<T>,
 ) => {
-  const [image, setImage] = useState<DocumentPickerResponse | null>(null);
   const {
-    field: { onChange },
+    field: { onChange, value },
   } = useController(props);
 
   const selectFile = async () => {
@@ -21,10 +18,8 @@ export const DocumentPickerCustom = <T extends FieldValues>(
       const res = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.images],
       });
-      setImage(res);
       onChange(res);
     } catch (err) {
-      setImage(null);
       if (DocumentPicker.isCancel(err)) {
         Alert.alert('Canceled');
       } else {
@@ -39,7 +34,7 @@ export const DocumentPickerCustom = <T extends FieldValues>(
       <TouchableOpacity onPress={selectFile}>
         <Text>Upload file</Text>
       </TouchableOpacity>
-      {image && <Image style={styles.image} source={{ uri: image.uri }} />}
+      {value && <Image style={styles.image} source={{ uri: value.uri }} />}
     </View>
   );
 };
