@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "278154869897",
+    "project_id": "cis-holders-66a87",
+    "storage_bucket": "cis-holders-66a87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278154869897:android:e47cfe9cf75ce78bcfda58",
+        "android_client_info": {
+          "package_name": "com.cisholders"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278154869897-isu7ap4df59l827rvrkskle7fl77vv11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuLEF3HQNwFcI5uf5kQ6r1z1VQMLtzX3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278154869897-isu7ap4df59l827rvrkskle7fl77vv11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

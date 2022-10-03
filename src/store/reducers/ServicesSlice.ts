@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DocumentPickerResponse } from 'react-native-document-picker';
+import { LatLng } from 'react-native-maps';
 
 export type Service = {
+  id: string;
   dateAdded: string;
   title: string;
   description: string;
-  location: string;
+  location: LatLng;
   attachment: DocumentPickerResponse | null;
   serviceType: string;
 };
