@@ -1,15 +1,16 @@
 import React, { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Alert, Button, Text, Switch, View } from 'react-native';
+import { Button, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { DocumentPickerCustom } from 'components/DocumentPickerCustom/DocumentPickerCustom';
 import { DropdownPicker } from 'components/DropdownPicker/DropdownPicker';
 import { TextInput } from 'components/TextInput/TextInput';
 import { styles } from './styles';
-import { FormDataType } from './types';
+import { NewServiceFormDataType } from './types';
 import { useAppDispatch } from 'store/store';
 import { addNewServiceStarted } from 'store/reducers/ServicesSlice';
-import { addDate } from 'utils/helpers/addDate';
+import { formatNewServiceData } from 'utils/helpers/formatNewServiceData';
+import MapView, { MapPressEvent, PROVIDER_GOOGLE } from 'react-native-maps';
 
 export const AddNewServiceScreen: FC = () => {
   const {
@@ -17,60 +18,81 @@ export const AddNewServiceScreen: FC = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     defaultValues: {
       title: '',
       description: '',
       serviceType: '',
-      location: '',
+      location: { latitude: '', longitude: '' },
       attachment: null,
     },
   });
   const dispatch = useAppDispatch();
-  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const [isMapOpen, setIsMapOpen] = useState<boolean>(false);
 
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const openMap = () => setIsMapOpen(true);
 
-  const onSubmit: SubmitHandler<FormDataType> = data => {
-    dispatch(addNewServiceStarted(addDate(data)));
+  const onMapPress = (e: MapPressEvent) => {
+    setIsMapOpen(false);
+    setValue('location.latitude', e.nativeEvent.coordinate.latitude.toString());
+    setValue(
+      'location.longitude',
+      e.nativeEvent.coordinate.longitude.toString(),
+    );
+  };
+
+  const onSubmit: SubmitHandler<NewServiceFormDataType> = data => {
+    dispatch(addNewServiceStarted(formatNewServiceData(data)));
     reset();
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
-        control={control}
-        name="title"
-        placeholder="title"
-        rules={{ required: true }}
-      />
-      {errors.title && <Text>This field is required.</Text>}
-      <TextInput
-        control={control}
-        name="description"
-        placeholder="description"
-      />
-      <DropdownPicker control={control} name="serviceType" />
-      <TextInput control={control} name="location" placeholder="location" />
-      <View style={styles.toogleText}>
-        <Text>Show on map</Text>
-        <Switch
-          trackColor={{ false: '#767577', true: '#81b0ff' }}
-          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
-      </View>
-      {isEnabled && (
-        <Button
-          title="Show on map"
-          onPress={() => Alert.alert('ShowOnMap button clicked!')}
+      {!isMapOpen ? (
+        <>
+          <TextInput
+            control={control}
+            name="title"
+            placeholder="title"
+            rules={{ required: true }}
+          />
+          {errors.title && <Text>This field is required.</Text>}
+          <TextInput
+            control={control}
+            name="description"
+            placeholder="description"
+          />
+          <DropdownPicker control={control} name="serviceType" />
+          <TextInput
+            control={control}
+            name="location.latitude"
+            placeholder="latitude"
+            keyboardType="number-pad"
+          />
+          <TextInput
+            control={control}
+            name="location.longitude"
+            placeholder="longitude"
+            keyboardType="number-pad"
+          />
+          <Button title="Show on map" onPress={openMap} />
+          <DocumentPickerCustom control={control} name="attachment" />
+          <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+        </>
+      ) : (
+        <MapView
+          style={styles.map}
+          provider={PROVIDER_GOOGLE}
+          onPress={onMapPress}
+          initialRegion={{
+            latitude: 40.7306,
+            longitude: -73.9352,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
         />
       )}
-
-      <DocumentPickerCustom control={control} name="attachment" />
-
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </SafeAreaView>
   );
 };

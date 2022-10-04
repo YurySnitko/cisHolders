@@ -6,10 +6,15 @@ import { TextInputProps } from './TextInput.types';
 export const TextInput = <T extends FieldValues>(props: TextInputProps<T>) => {
   const { name, control, rules, ...rest } = props;
   const {
-    field: { onChange, ...restFieldProps },
+    field: { onChange, value, ...restFieldProps },
   } = useController<T>({ name, control, rules });
 
   return (
-    <NativeTextInput onChangeText={onChange} {...restFieldProps} {...rest} />
+    <NativeTextInput
+      onChangeText={onChange}
+      value={value}
+      {...restFieldProps}
+      {...rest}
+    />
   );
 };

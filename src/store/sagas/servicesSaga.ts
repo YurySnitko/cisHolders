@@ -9,6 +9,7 @@ import {
   getServicesSuccess,
   Service,
 } from 'store/reducers/ServicesSlice';
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 function* getServicesWorker() {
   try {
@@ -21,8 +22,9 @@ function* getServicesWorker() {
 
 function* addNewServiceWorker(action: PayloadAction<Service>) {
   try {
-    yield call(() => addService(action.payload));
-    yield put(addNewServiceSuccess(action.payload));
+    const data: FirebaseFirestoreTypes.DocumentReference<FirebaseFirestoreTypes.DocumentData> =
+      yield call(() => addService(action.payload));
+    yield put(addNewServiceSuccess({ ...action.payload, id: data.id }));
   } catch (e) {
     yield put(addNewServiceFailed(e));
   }
