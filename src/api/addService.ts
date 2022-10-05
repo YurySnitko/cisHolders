@@ -1,7 +1,7 @@
 import { utils } from '@react-native-firebase/app';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
-import { FormDataWithDateType } from 'src/types/formDataWithDateType';
+import { FormDataWithDateType } from 'types/formDataWithDateType';
 
 export const addService = async (data: FormDataWithDateType) => {
   if (data.attachment) {
