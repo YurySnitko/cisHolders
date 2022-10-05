@@ -13,6 +13,7 @@
       "utils/*": ["src/utils/*"],
       "api/*": ["src/api/*"],
       "types/*": ["src/types/*"],
+      "consts/*": ["src/consts/*"],
     }
   }
 }

@@ -5,6 +5,7 @@ module.exports = {
     [
       'module-resolver',
       {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         alias: {
           components: './src/components',
           controls: './src/controls',
@@ -14,6 +15,7 @@ module.exports = {
           utils: './src/utils',
           api: './src/api',
           types: './src/types',
+          consts: './src/consts',
         },
       },
     ],
