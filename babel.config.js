@@ -16,6 +16,8 @@ module.exports = {
           api: './src/api',
           types: './src/types',
           consts: './src/consts',
+          assets: './src/assets',
+          styles: './src/styles',
         },
       },
     ],

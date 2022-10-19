@@ -4,13 +4,17 @@ import { AppNavigation } from './src/routers';
 import { Provider } from 'react-redux';
 import store from 'store/store';
 import { enableLatestRenderer } from 'react-native-maps';
+import { ThemeProvider } from '@rneui/themed';
+import { theme } from 'src/styles/theme';
 
 enableLatestRenderer();
 
 const App = () => {
   return (
     <Provider store={store}>
-      <AppNavigation />
+      <ThemeProvider theme={theme}>
+        <AppNavigation />
+      </ThemeProvider>
     </Provider>
   );
 };

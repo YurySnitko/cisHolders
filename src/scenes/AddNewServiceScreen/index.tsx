@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Button, Text } from 'react-native';
+import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { DocumentPickerCustom } from 'components/DocumentPickerCustom/DocumentPickerCustom';
 import { DropdownPicker } from 'components/DropdownPicker/DropdownPicker';
@@ -9,8 +9,9 @@ import { styles } from './styles';
 import { NewServiceFormDataType } from './types';
 import { useAppDispatch } from 'store/store';
 import { addNewServiceStarted } from 'store/reducers/ServicesSlice';
-import { formatNewServiceData } from 'utils/helpers/formatNewServiceData';
 import MapView, { MapPressEvent, PROVIDER_GOOGLE } from 'react-native-maps';
+import { serviceTypeItems } from 'consts/serviceTypeItems';
+import { Button } from '@rneui/themed';
 
 export const AddNewServiceScreen: FC = () => {
   const {
@@ -42,8 +43,19 @@ export const AddNewServiceScreen: FC = () => {
     );
   };
 
-  const onSubmit: SubmitHandler<NewServiceFormDataType> = data => {
-    dispatch(addNewServiceStarted(formatNewServiceData(data)));
+  const onSubmit: SubmitHandler<NewServiceFormDataType> = ({
+    location,
+    ...restData
+  }) => {
+    const formatedData = {
+      location: {
+        latitude: +location.latitude,
+        longitude: +location.longitude,
+      },
+      dateAdded: new Date().toISOString(),
+      ...restData,
+    };
+    dispatch(addNewServiceStarted(formatedData));
     reset();
   };
 
@@ -54,31 +66,46 @@ export const AddNewServiceScreen: FC = () => {
           <TextInput
             control={control}
             name="title"
-            placeholder="title"
+            label="Title"
+            placeholder="Enter title..."
             rules={{ required: true }}
           />
           {errors.title && <Text>This field is required.</Text>}
           <TextInput
             control={control}
             name="description"
-            placeholder="description"
+            label="Description"
+            multiline
+            placeholder="Enter description..."
           />
-          <DropdownPicker control={control} name="serviceType" />
+          <DropdownPicker
+            initialItems={serviceTypeItems}
+            control={control}
+            name="serviceType"
+            placeholder="Select a service type"
+          />
           <TextInput
             control={control}
             name="location.latitude"
-            placeholder="latitude"
+            label="Latitude"
+            placeholder="Enter latitude..."
             keyboardType="number-pad"
           />
           <TextInput
             control={control}
             name="location.longitude"
-            placeholder="longitude"
+            label="Longitude"
+            placeholder="Enter longitude..."
             keyboardType="number-pad"
           />
           <Button title="Show on map" onPress={openMap} />
           <DocumentPickerCustom control={control} name="attachment" />
-          <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+          <Button
+            title="Submit"
+            uppercase
+            color="secondary"
+            onPress={handleSubmit(onSubmit)}
+          />
         </>
       ) : (
         <MapView

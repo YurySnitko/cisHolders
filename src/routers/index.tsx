@@ -17,18 +17,20 @@ export const AppNavigation: FC = () => {
     <NavigationContainer>
       <Drawer.Navigator
         initialRouteName="Home"
-        drawerContent={props => <CustomDrawerContent {...props} />}
-        screenOptions={({ route }) => ({
-          headerTitleAlign: 'center',
-          headerTitle: getFocusedRouteNameFromRoute(route),
-        })}>
-        <Drawer.Screen name="Home" component={HomeTabs} />
+        drawerContent={props => <CustomDrawerContent {...props} />}>
+        <Drawer.Screen
+          name="Home"
+          component={HomeTabs}
+          options={() => ({ headerShown: false })}
+        />
         <Drawer.Screen
           name="DrawerStack"
           component={DrawerStack}
-          options={{
+          options={({ route }) => ({
+            headerTitleAlign: 'center',
             headerLeft: NavBackButton,
-          }}
+            headerTitle: getFocusedRouteNameFromRoute(route),
+          })}
         />
       </Drawer.Navigator>
     </NavigationContainer>

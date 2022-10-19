@@ -13,8 +13,8 @@ export const MapScreen: FC = () => {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         initialRegion={{
-          latitude: 40.7306,
-          longitude: -73.9352,
+          latitude: 40.741358224733524,
+          longitude: -73.97773458561866,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>

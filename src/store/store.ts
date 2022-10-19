@@ -1,3 +1,4 @@
+import filtrationAndSortingReducer from './reducers/FiltrationAndSortingSlice';
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import servicesReducer from 'store/reducers/ServicesSlice';
@@ -9,6 +10,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({
   reducer: {
     services: servicesReducer,
+    filtrationAndSorting: filtrationAndSortingReducer,
   },
   middleware: [sagaMiddleware],
 });

@@ -1,22 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DocumentPickerResponse } from 'react-native-document-picker';
-import { LatLng } from 'react-native-maps';
-
-export type Service = {
-  id: string;
-  dateAdded: string;
-  title: string;
-  description: string;
-  location: LatLng;
-  attachment: DocumentPickerResponse | null;
-  serviceType: string;
-};
-
-type ServicesState = {
-  data: Service[];
-  error: string;
-  isLoading: boolean;
-};
+import { ServicesState } from 'store/types/ServicesState';
+import { Service } from 'types/service';
 
 const initialState: ServicesState = {
   data: [] as Service[],
