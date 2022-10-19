@@ -1,12 +1,13 @@
-import { Service } from 'store/reducers/ServicesSlice';
+import { FiltrationAndServiceState } from 'store/types/FiltrationAndSortingState';
+import { Service } from 'types/service';
+import { ServiceCategory } from 'types/serviceCategory';
+import { filterAndSortServicesData } from './filterAndSortServicesData';
 
-type ServiceCategory = {
-  title: string;
-  data: Service[];
-};
-
-export const formatServicesData = (data: Service[]) => {
-  return data.reduce((arr, item) => {
+export const formatServicesData = (
+  data: Service[],
+  filtersAndSortings: FiltrationAndServiceState,
+) => {
+  const servicesDataInCategories = data.reduce((arr, item) => {
     const index = arr.findIndex(
       category => category.title === item.serviceType,
     );
@@ -17,4 +18,9 @@ export const formatServicesData = (data: Service[]) => {
     }
     return arr;
   }, [] as ServiceCategory[]);
+
+  return filterAndSortServicesData(
+    servicesDataInCategories,
+    filtersAndSortings,
+  );
 };
