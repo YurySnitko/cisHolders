@@ -1,10 +1,12 @@
 import React from 'react';
 import DocumentPicker from 'react-native-document-picker';
-import { View, Alert, Text, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, Alert, Image } from 'react-native';
 import { FieldValues, useController } from 'react-hook-form';
 import { styles } from './DocumentPickerCustom.styles';
 import { DocumentPickerCustomProps } from './DocumentPickerCustom.types';
+import { RoundedButton } from 'controls/RoundedButton/RoundedButton';
+import { Icon } from '@rneui/themed';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const DocumentPickerCustom = <T extends FieldValues>(
   props: DocumentPickerCustomProps<T>,
@@ -29,12 +31,29 @@ export const DocumentPickerCustom = <T extends FieldValues>(
     }
   };
 
+  const unselectFile = () => {
+    onChange(null);
+  };
+
   return (
-    <View>
-      <TouchableOpacity onPress={selectFile}>
-        <Text>Upload file</Text>
-      </TouchableOpacity>
-      {value && <Image style={styles.image} source={{ uri: value.uri }} />}
+    <View style={styles.container}>
+      {value ? (
+        <>
+          <Image style={styles.image} source={{ uri: value.uri }} />
+          <TouchableOpacity
+            containerStyle={styles.closeIcon}
+            onPress={unselectFile}>
+            <Icon name="close" type="font-awesome" color="#f4f8ff" />
+          </TouchableOpacity>
+        </>
+      ) : (
+        <RoundedButton
+          title="Upload an image"
+          onPress={selectFile}
+          iconName="upload"
+          iconType="feather"
+        />
+      )}
     </View>
   );
 };

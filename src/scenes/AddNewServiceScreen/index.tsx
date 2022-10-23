@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Text } from 'react-native';
+import { Text, LogBox } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { DocumentPickerCustom } from 'components/DocumentPickerCustom/DocumentPickerCustom';
 import { DropdownPicker } from 'components/DropdownPicker/DropdownPicker';
@@ -12,6 +12,8 @@ import { addNewServiceStarted } from 'store/reducers/ServicesSlice';
 import MapView, { MapPressEvent, PROVIDER_GOOGLE } from 'react-native-maps';
 import { serviceTypeItems } from 'consts/serviceTypeItems';
 import { Button } from '@rneui/themed';
+import { ScrollView } from 'react-native-gesture-handler';
+import { RoundedButton } from 'controls/RoundedButton/RoundedButton';
 
 export const AddNewServiceScreen: FC = () => {
   const {
@@ -59,10 +61,14 @@ export const AddNewServiceScreen: FC = () => {
     reset();
   };
 
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       {!isMapOpen ? (
-        <>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
           <TextInput
             control={control}
             name="title"
@@ -98,15 +104,23 @@ export const AddNewServiceScreen: FC = () => {
             placeholder="Enter longitude..."
             keyboardType="number-pad"
           />
-          <Button title="Show on map" onPress={openMap} />
+          <RoundedButton
+            title="Show on map"
+            onPress={openMap}
+            iconName="map-pin"
+            iconType="feather"
+          />
           <DocumentPickerCustom control={control} name="attachment" />
           <Button
             title="Submit"
             uppercase
+            size="lg"
+            radius="xl"
             color="secondary"
             onPress={handleSubmit(onSubmit)}
+            containerStyle={styles.submitButton}
           />
-        </>
+        </ScrollView>
       ) : (
         <MapView
           style={styles.map}

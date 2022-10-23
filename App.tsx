@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from 'store/store';
 import { enableLatestRenderer } from 'react-native-maps';
 import { ThemeProvider } from '@rneui/themed';
-import { theme } from 'src/styles/theme';
+import { theme } from 'styles/theme';
 
 enableLatestRenderer();
 
